@@ -1,0 +1,112 @@
+html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body {
+    background: url(../images/bg.jpg) center 20% no-repeat fixed;
+    background-size: cover;
+    font-feature-settings: "palt";
+}
+
+.header .navbar {
+    height: 55px;
+    position: relative;
+}
+
+.header .navbar .btn {
+    position: absolute;
+    right: 100px;
+}
+
+.header .navbar .user-icon {
+    position: absolute;
+    right: 100px;
+}
+
+.header .user-icon svg {
+    color: #17a2b8;
+}
+
+.header .user-name {
+    color: #fff;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.header .user-level {
+    color: #fff;
+}
+
+.errorCode {
+    color: red;
+}
+
+
+/* HOME CONTENT */
+
+.container.home {
+    margin-top: 100px;
+}
+
+.home .home-banner .card {
+    width: 95%;
+}
+
+.home .card {
+    width: 30rem;
+    margin-bottom: 20px;
+}
+
+#creatCamapignFunction .campaignInfo {
+    display: block;
+    border: 1px solid #ced4da;
+}
+
+
+/* campaign */
+
+.campaign-banner {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.campaign-banner h1 {
+    font-weight: bold;
+}
+
+.delete-campaign {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.apply-cancel {
+    display: none;
+}
+
+.campaign-card {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.member-info ol {
+    font-size: 1.2rem;
+}
+
+.member-info ol li {
+    line-height: 2rem;
+    position: relative;
+}
+
+.delete-member {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.member-info ol li:hover {
+    color: #17a2b8;
+}
+
+.delete-member:hover {
+    color: #17a2b8;
+}

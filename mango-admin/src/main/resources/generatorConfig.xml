@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>  
+    <!-- 数据库驱动包位置 -->
+    <classPathEntry location="C:/Users/sunhuafeng/.m2/repository/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18.jar" /> <!-- 1 -->
+    <context id="mysql" targetRuntime="MyBatis3Simple">
+    
+        <commentGenerator>  
+            <property name="suppressDate" value="true"/>  
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->  
+            <property name="suppressAllComments" value="true"/>  
+        </commentGenerator> 
+        <!-- 数据库链接URL、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/mapo?characterEncoding=utf8&amp;serverTimezone = GMT" userId="root" password="root">  <!-- 2 -->
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置 --> <!-- 3 -->
+        <javaModelGenerator targetPackage="com.louis.mango.admin.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- 生成的映射文件包名和位置 --> <!-- 4 -->
+        <sqlMapGenerator targetPackage="com.louis.mango.admin.sqlmap" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置 --> <!-- 5 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.louis.mango.admin.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) --><!-- 6 -->
+<!--          <table tableName="sys_user" domainObjectName="SysUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+       <table tableName="stable" domainObjectName="Stable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+  --> 
+         <table tableName="stableinfo" domainObjectName="StableInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    </context>
+</generatorConfiguration>

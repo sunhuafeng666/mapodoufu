@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.louis.mango.admin.dao.MainMapper">
+  <resultMap id="BaseResultMap" type="com.louis.mango.admin.model.Main">
+    <result column="idName" jdbcType="VARCHAR" property="idname" />
+    <result column="register" jdbcType="INTEGER" property="register" />
+    <result column="memo" jdbcType="INTEGER" property="memo" />
+    <result column="peopleNum" jdbcType="VARCHAR" property="peoplenum" />
+    <result column="startTime" jdbcType="VARCHAR" property="starttime" />
+    <result column="idnameteamnum" jdbcType="INTEGER" property="idnameteamnum" />
+         <collection property="nickname" ofType="String">
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    </collection>
+  </resultMap>
+ <select id="selectByIdNameAndTeamNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+SELECT b.idName,b.register,b.idnameteamnum,b.memo,b.peopleNum,b.startTime,a.nickname
+FROM stable as a, stableinfo as b
+where a.idname=b.idName
+and a.idname=#{idname,jdbcType=VARCHAR} 
+and a.idnameTeamNum=b.idnameteamnum
+</select>
+ 
+</mapper>

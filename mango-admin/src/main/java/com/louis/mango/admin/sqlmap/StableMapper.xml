@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.louis.mango.admin.dao.StableMapper">
+  <resultMap id="BaseResultMap" type="com.louis.mango.admin.model.Stable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="idname" jdbcType="VARCHAR" property="idname" />
+    <result column="idnameTeamNum" jdbcType="INTEGER" property="idnameteamnum" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stable
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertStable" parameterType="com.louis.mango.admin.model.Stable">
+    insert into stable (id, idname, idnameTeamNum, 
+      nickname)
+    values (#{id,jdbcType=INTEGER}, #{idname,jdbcType=VARCHAR}, #{idnameteamnum,jdbcType=INTEGER}, 
+      #{nickname,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.louis.mango.admin.model.Stable">
+    update stable
+    set idname = #{idname,jdbcType=VARCHAR},
+      idnameTeamNum = #{idnameteamnum,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <!--通过id查询所有该所有队伍中的队伍  -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, idname, idnameTeamNum, nickname
+    from stable
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, idname, idnameTeamNum, nickname
+    from stable
+  </select>
+  
+  <!--通过副本名字查询所有该副本的队伍  -->
+  <select id="selectByIdName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, idname, idnameTeamNum, nickname
+    from stable
+    where idname = #{idname,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectStablesByNicknameAndIdname" resultMap="BaseResultMap">
+    select c
+    from stable
+    where nickname = #{nickname,jdbcType=VARCHAR} and idname = #{idname,jdbcType=VARCHAR} and
+    idnameTeamNum = #{idnameteamnum,jdbcType=INTEGER} 
+  </select>
+  
+  
+</mapper>

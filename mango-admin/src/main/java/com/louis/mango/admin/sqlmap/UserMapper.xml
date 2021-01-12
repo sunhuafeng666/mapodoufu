@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.louis.mango.admin.dao.UserMapper">
+
+
+  <resultMap id="BaseResultMap" type="com.louis.mango.admin.model.User">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="regist_time" jdbcType="VARCHAR" property="registTime" />
+    <result column="phone" jdbcType="LONGVARCHAR" property="phone" />
+  </resultMap>
+  <insert id="insert" parameterType="com.louis.mango.admin.model.User">
+    insert into user (password, nickname, 
+      level, is_delete, regist_time, 
+      phone)
+    values (#{password,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{registTime,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=LONGVARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, password, nickname, level, is_delete, regist_time, phone
+    from user
+  </select>
+  
+    <select id="selectByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from user
+    where phone = #{phone,jdbcType=VARCHAR}
+  </select>
+  
+      <select id="selectByNickname" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select nickname
+    from user
+    where nickname = #{nickname,jdbcType=VARCHAR}
+  </select>
+
+      <select id="selectByPhoneAndPassword" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from user
+    where phone = #{phone,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
+  
+  
+</mapper>

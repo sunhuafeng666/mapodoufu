@@ -1,0 +1,4 @@
+2019-11-30 00:36:05 上午 [Thread: main][ Class:druid.sql.Connection >> Method: com.alibaba.druid.filter.logging.Log4jFilter.connectionLog(Log4jFilter.java:132) ]
+DEBUG:{conn-10001} connected
+2019-11-30 00:38:29 上午 [Thread: RMI TCP Connection(3)-127.0.0.1][ Class:druid.sql.Connection >> Method: com.alibaba.druid.filter.logging.Log4jFilter.connectionLog(Log4jFilter.java:132) ]
+DEBUG:{conn-10001} closed

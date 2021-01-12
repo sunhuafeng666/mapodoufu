@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.louis.mango.admin.dao.StableInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.louis.mango.admin.model.StableInfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="idName" jdbcType="VARCHAR" property="idname" />
+		<result column="register" jdbcType="VARCHAR"
+			property="register" />
+		<result column="memo" jdbcType="VARCHAR" property="memo" />
+		<result column="peopleNum" jdbcType="INTEGER"
+			property="peoplenum" />
+		<result column="registTime" jdbcType="TIMESTAMP"
+			property="registtime" />
+		<result column="startTime" jdbcType="TIMESTAMP"
+			property="starttime" />
+		<result column="is_delete" jdbcType="INTEGER"
+			property="isDelete" />
+		<result column="idnameteamnum" jdbcType="INTEGER"
+			property="idnameteamnum" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from stableinfo
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.louis.mango.admin.model.StableInfo">
+		insert into stableinfo (id, idName, register,
+		memo, peopleNum, registTime,
+		startTime, is_delete, idnameteamnum)
+		values (#{id,jdbcType=INTEGER}, #{idname,jdbcType=VARCHAR},
+		#{register,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR}, #{peoplenum,jdbcType=INTEGER}, #{registtime,jdbcType=TIMESTAMP},
+		#{starttime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=INTEGER},
+		#{idnameteamnum,jdbcType=INTEGER})
+	</insert>
+	<update id="updateByPrimaryKey"
+		parameterType="com.louis.mango.admin.model.StableInfo">
+		update stableinfo
+		set idName = #{idname,jdbcType=VARCHAR},
+		register = #{register,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		peopleNum = #{peoplenum,jdbcType=INTEGER},
+		registTime = #{registtime,jdbcType=TIMESTAMP},
+		startTime = #{startTime,jdbcType=TIMESTAMP},
+		is_delete = #{isDelete,jdbcType=INTEGER},
+		idnameteamnum = #{idnameteamnum,jdbcType=INTEGER},
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select id, idName, register, memo, peopleNum, registTime, startTime,
+		is_delete, idnameteamnum
+		from stableinfo
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select id, idName, register, memo, peopleNum, registTime, startTime,
+		is_delete, idnameteamnum
+		from stableinfo
+	</select>
+
+	<select id="selectByIdName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select id, idName, register, memo, peopleNum, registTime, startTime,
+		is_delete, idnameteamnum
+		from stableinfo
+		where idName = #{idname,jdbcType=VARCHAR} order by idnameteamnum desc
+	</select>
+
+	<select id="selectAllIdName" resultType="String">
+		select distinct idName
+		from stableinfo ORDER BY idName ASC
+	</select>
+
+</mapper>
