@@ -8,6 +8,6 @@ public class HelloController {
 	
 	@GetMapping(value="/hello")
 	public Object hello() {
-		return "20200113";
+		return "20200113 sunhaufengbctest";
 	}
 }
