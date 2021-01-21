@@ -6,6 +6,7 @@ $.extend(home, {
         home.userInfo();
         home.selectCampaign();
         home.createCampaign();
+        home.selectPickers();
     },
     userInfo: function() {
         var that = this;
@@ -106,8 +107,44 @@ $.extend(home, {
                 console.log(e.responseText);
             }
         })
+    },
+
+    selectPickers: function() {
+    //活动名称选择
+        $.ajax({
+            url: '/getAllIdName',
+            type: 'GET',
+            data: {},
+            success: function(data) {
+                var responses = data;
+                var msgCode = responses.resultId;
+                if (msgCode == 'N001') {
+                    var pickersList = responses.list;
+                    if (pickersList.length > 0) {
+                        var pickersTable = '';
+                        for (var pickersInfo in pickersList) {
+                            pickersTable += '<a class="dropdown-item" onClick="changeAction(\'' + pickersList[pickersInfo] + '\')" href="#">' + pickersList[pickersInfo] + '</a>';
+                        }
+                        $('#selectPickers').append(pickersTable);
+                    }
+                } else {
+                    $('#warning-msg').find('strong').text('').text('检索失败，再刷新试试！').show();
+                }
+            },
+            error: function(e) {
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
     }
+   
 });
+
+function changeAction(obj){
+	//传过来的参数赋给活动名称的text文本	
+	$("#recipient-name").val(obj);
+}
+
 $(function() {
     home.index();
 })
