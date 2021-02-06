@@ -97,6 +97,9 @@ public class UserServiceImpl implements UserService {
 			} else {
 				pr.setResultId("N001");
 				pr.setResultContent("登录成功");
+				list.get(0).setLevel(list.get(0).getLevel()+1);
+				
+				UserMapper.updateByPrimaryKey(list.get(0));
 				list.get(0).setPassword(null);
 				pr.setUserInfoList(list);
 			}
