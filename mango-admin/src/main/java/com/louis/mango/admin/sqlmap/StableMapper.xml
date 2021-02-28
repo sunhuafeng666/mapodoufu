@@ -45,7 +45,7 @@
   </select>
   
    <select id="selectStablesByNicknameAndIdname" resultMap="BaseResultMap">
-    select c
+    select *
     from stable
     where nickname = #{nickname,jdbcType=VARCHAR} and idname = #{idname,jdbcType=VARCHAR} and
     idnameTeamNum = #{idnameteamnum,jdbcType=INTEGER} 

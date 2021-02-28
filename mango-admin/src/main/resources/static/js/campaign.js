@@ -5,7 +5,7 @@ $.extend(campaign, {
         var userName;
         campaign.userInfo();
         campaign.selectCampaignInfo();
-        // campaign.applyCampaign();
+
     },
     userInfo: function() {
         var that = this;
@@ -41,46 +41,16 @@ $.extend(campaign, {
             window.location.replace("login.html");
         }
     },
-    applyCampaign: function() {
-        $('#createCampaign').click(function() {
-            $.ajax({
-                url: '/insertStableInfo',
-                type: 'POST',
-                data: {
-                    'idname': $('#creatCamapignFunction').find('#recipient-name').val(),
-                    'memo': $('#creatCamapignFunction').find('#message-text').val(),
-                    'peoplenum': $('#creatCamapignFunction').find('#group-number').val(),
-                    'starttime': $('#creatCamapignFunction').find('#startTime').val(),
-                    'register': userName
-                },
-                success: function(data) {
-                    var responses = data;
-                    var msgCode = responses.resultId;
-                    var msgInfo = responses.resultContent;
-                    if (msgCode == 'N001') {
-                        home.selectCampaign();
-                        window.location.replace("campaign.html");
-                    } else {
-                        if ($('#creatCampaign').find('.errorCode').length > 0) {
-                            $('#creatCampaign').find('.errorCode').remove();
-                        }
-                        $('#creatCampaign').find('.modal-body').append('<small class="errorCode">' + msgInfo + '</small>');
-                    }
-                },
-                error: function(e) {
-                    $('#warning-msg').find('strong').text('创建失败，再试一次！').show();
-                    console.log(e.status);
-                    console.log(e.responseText);
-                }
-            })
-        })
-    },
     selectCampaignInfo: function() {
+        //活动team名称选择
+        var campaignName = null;
+        campaignName = sessionStorage.getItem('campaignName');
+        $(".campaign-banner").find("h1").text(campaignName);
         $.ajax({
             url: '/selectStableByIdName',
             type: 'GET',
             data: {
-                'idName':
+                'idName': campaignName
             },
             success: function(data) {
                 var responses = data;
@@ -88,14 +58,43 @@ $.extend(campaign, {
                 if (msgCode == 'N001') {
                     var campaignInfoList = responses.mainList;
                     if (campaignInfoList.length > 0) {
-                        var campaignTableHtml = '';
-                        var memberInfoHtml = '';
-                        for (var campaignInfo in campaignInfoList) {
-                            campaignTableHtml += '<div class="col mb-6"><div class="card campaign-card"><button type="button" class="close delete-campaign" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="card-body"> <h5 class="card-title">' + campaignList[campaignInfo].memo + '</h5><p class="card-text">' + campaignList[campaignInfo].register + '</p><p class="card-text start-time">开始时间: <span>' + campaignList[campaignInfo].starttime + '</span></p><p class="card-text person-num">人数:<span> ' + campaignList[campaignInfo].peoplenum + '</span></p><div class="member-info"><p>队友一览</p><ol>';
-                            for (var memberInfo in campaignList[campaignInfo].nickname) {
-                                memberInfoHtml = '<li>' + memberInfo + '<button type="button" class="close delete-member" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></li>'
+                        var applyed = false;
+                        var groupHtml = '';
+                        var currentMemberId = null;
+                        if ($('#campaignTable').find('.mb-6').length > 0) {
+                            $('#campaignTable').find('.mb-6').remove();
+                        }
+                        for (var campaignInfo = 0; campaignInfoList.length > campaignInfo; campaignInfo++) {
+                            groupHtml += '<div class="col mb-6" teamNum = "' + campaignInfoList[campaignInfo].idnameteamnum + '"><div class="card campaign-card"><button type="button" class="close delete-campaign" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="card-body"><h5 class="card-title"> Team Id: ' + campaignInfoList[campaignInfo].idnameteamnum + '</h5> <h5 class="card-title">' + campaignInfoList[campaignInfo].memo + '</h5><p class="card-text"> 队长: ' + campaignInfoList[campaignInfo].register + '</p><p class="card-text start-time">开始时间: <span>' + campaignInfoList[campaignInfo].starttime + '</span></p><p class="card-text person-num">人数:<span> ' + campaignInfoList[campaignInfo].peoplenum + '</span></p><div class="member-info"><p>队友一览</p><ol>';
+                            var memberList = campaignInfoList[campaignInfo].stables;
+                            if (memberList.length > 0) {
+                                for (var i = 0; memberList.length > i; i++) {
+                                    var memberId = memberList[i].id;
+                                    var memberName = memberList[i].nickname;
+                                    var loginName = $('.navbar').find('.user-name').text();
+                                    if (campaignInfoList[campaignInfo].register === loginName) {
+                                        groupHtml += '<li class="' + memberId + '" onclick="deleteTeamMember(' + memberId + ');">' + memberName + '<button type="button" class="close delete-member" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></li>';
+                                    } else {
+                                        groupHtml += '<li class="' + memberId + '>' + memberName + '</li>';
+                                    }
+
+                                    if (memberName === loginName) {
+                                        applyed = true;
+                                        currentMemberId = memberList[i].id;
+                                    }
+                                }
+                                if (applyed == true) {
+                                    groupHtml += '</ol></div><a href="javascript:void(0);" class="btn btn-outline-info apply-cancel disaplay" onclick="cancelCampaign(' + currentMemberId + ')">取消报名</a></div></div></div>';
+                                } else {
+                                    groupHtml += '</ol></div><a href="javascript:void(0);" onclick="applyCampaign(' + campaignInfoList[campaignInfo].idnameteamnum + ')" class="btn btn-outline-info apply-bottom">我要报名</a></div></div></div>';
+                                }
                             }
                         }
+
+                        $('#campaignTable').append(groupHtml);
+                        $('.delete-campaign').click(function() {
+                            $(this).parent('.mb-6').remove();
+                        });
                     }
 
                 } else {
@@ -107,7 +106,7 @@ $.extend(campaign, {
                 console.log(e.responseText);
             }
         })
-    }
+    },
 });
 $(function() {
     campaign.index();

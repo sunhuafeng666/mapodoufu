@@ -79,14 +79,14 @@ public class StableInfoServiceImpl implements StableInfoService {
 			stableInfo.setRegisttime(LocalDateTime.now().withNano(0));
 			// 活动开始时间
 			if (AddStableInfo.getStarttime() != null) {
-				stableInfo.setStarttime(AddStableInfo.getStarttime().plusHours(9));
+				stableInfo.setStarttime(AddStableInfo.getStarttime());
 			}	
 			int num = stableInfoMapper.insert(stableInfo);
 			if (num == 1) {
 				Stable stable= new Stable();
-				stable.setIdname(stableInfo.getRegister());
+				stable.setIdname(stableInfo.getIdname());
 				stable.setIdnameteamnum(stableInfo.getIdnameteamnum());
-				stable.setNickname(stableInfo.getIdname());
+				stable.setNickname(stableInfo.getRegister());
 				int num2 = stableMapper.insertStable(stable);
 				if (num2 == 1) {
 					processingResult.setResultId("N001");

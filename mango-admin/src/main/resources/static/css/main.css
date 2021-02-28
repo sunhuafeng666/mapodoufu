@@ -41,6 +41,14 @@ body {
     color: red;
 }
 
+.undisplay {
+    display: none;
+}
+
+.disaplay {
+    display: block;
+}
+
 
 /* HOME CONTENT */
 
@@ -80,10 +88,6 @@ body {
     top: 10px;
 }
 
-.apply-cancel {
-    display: none;
-}
-
 .campaign-card {
     background-color: rgba(255, 255, 255, 0.7);
 }
@@ -113,16 +117,28 @@ body {
 
 
 /*  */
-.campaignInfo .dropdown-toggle::after{
-    position:absolute;
+
+.campaignInfo .dropdown-toggle::after {
+    position: absolute;
     right: 3%;
     top: 45%;
 }
-.campaignInfo .dropdown-toggle{
+
+.campaignInfo .dropdown-toggle {
     width: 100%;
     text-align: left;
-    height:30px;
+    height: 30px;
 }
-.campaignInfo .dropdown-menu.show{
+
+.campaignInfo .dropdown-menu.show {
     width: 100%;
+}
+
+#campaignTable .apply-bottom,
+#campaignTable .apply-cancel {
+    width: 90px;
+}
+
+.member-info {
+    height: 450px;
 }

@@ -8,12 +8,13 @@
     <result column="peopleNum" jdbcType="VARCHAR" property="peoplenum" />
     <result column="startTime" jdbcType="VARCHAR" property="starttime" />
     <result column="idnameteamnum" jdbcType="INTEGER" property="idnameteamnum" />
-         <collection property="nickname" ofType="String">
+    <collection property="stables" ofType="com.louis.mango.admin.model.Stable">
+        <id property="id" column="id"/>
         <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     </collection>
   </resultMap>
  <select id="selectByIdNameAndTeamNum" parameterType="java.lang.String" resultMap="BaseResultMap">
-SELECT b.idName,b.register,b.idnameteamnum,b.memo,b.peopleNum,b.startTime,a.nickname
+SELECT b.idName,b.register,b.idnameteamnum,b.memo,b.peopleNum,b.startTime,a.nickname,a.id 
 FROM stable as a, stableinfo as b
 where a.idname=b.idName
 and a.idname=#{idname,jdbcType=VARCHAR} 

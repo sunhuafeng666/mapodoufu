@@ -60,7 +60,8 @@ $.extend(home, {
                     var msgInfo = responses.resultContent;
                     if (msgCode == 'N001') {
                         home.selectCampaign();
-                        window.location.replace("campaign.html");
+                        // $.cookie("campaignname", campaignname, { path: '/' });
+                        // window.location.replace("campaign.html");
                     } else {
                         if ($('#creatCampaign').find('.errorCode').length > 0) {
                             $('#creatCampaign').find('.errorCode').remove();
@@ -89,13 +90,21 @@ $.extend(home, {
                     if (campaignList.length > 0) {
                         var campaignTableHtml = '';
                         for (var campaignInfo in campaignList) {
-                            campaignTableHtml += '<div class="col mb-6"><div class="card"><div class="card-body"><h5 class="card-title">' + campaignList[campaignInfo].idname + '</h5></p><a href="./campaign.html" class="btn btn-outline-info">我要报名</a></div></div></div>';
+                            campaignTableHtml += '<div class="col mb-6"><div class="card"><div class="card-body"><h5 class="card-title">' + campaignList[campaignInfo].idname + '</h5></p><button type="button" class="btn btn-outline-info"  id="joinCampaign" campaignName="' + campaignList[campaignInfo].idname + '">我要报名</button></div></div></div>';
                         }
                         if ($('#campaignTable').find('.mb-6').length > 0) {
                             $('#campaignTable').find('.mb-6').remove();
                         }
                         $('#campaignTable').append(campaignTableHtml);
                         $('#creatCampaign').find('.close').trigger("click");
+                        $('#joinCampaign').click(function() {
+                            var campaignName = $(this).attr('campaignName');
+                            if (sessionStorage.getItem('campaignName')) {
+                                sessionStorage.removeItem('campaignName');
+                            }
+                            sessionStorage.setItem("campaignName", campaignName);
+                            window.location.replace("campaign.html");
+                        })
                     }
 
                 } else {
@@ -110,7 +119,7 @@ $.extend(home, {
     },
 
     selectPickers: function() {
-    //活动名称选择
+        //活动名称选择
         $.ajax({
             url: '/getAllIdName',
             type: 'GET',
@@ -137,12 +146,12 @@ $.extend(home, {
             }
         })
     }
-   
+
 });
 
-function changeAction(obj){
-	//传过来的参数赋给活动名称的text文本	
-	$("#recipient-name").val(obj);
+function changeAction(obj) {
+    //传过来的参数赋给活动名称的text文本	
+    $("#recipient-name").val(obj);
 }
 
 $(function() {

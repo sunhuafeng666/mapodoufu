@@ -35,7 +35,7 @@
             <h1>testets</h1>
         </div>
         <div class="row row-cols-1 row-cols-md-2" id="campaignTable">
-            <div class="col mb-6">
+            <!-- <div class="col mb-6">
                 <div class="card campaign-card">
                     <button type="button" class="close delete-campaign" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -63,7 +63,7 @@
                         <a href="#" class="btn btn-outline-info apply-cancel">取消报名</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="alert alert-warning alert-dismissible fade hide" role="alert" id="warning-msg">
@@ -81,3 +81,68 @@
 <script src="/laydate/laydate.js"></script>
 <script src="../js/everycheck.js"></script>
 <script src="../js/campaign.js"></script>
+<script>
+    function applyCampaign(idnameteamnum) {
+        var idnameteamnum = idnameteamnum;
+        $.ajax({
+            url: '/addStbale',
+            type: 'POST',
+            data: {
+                'idname': $('.campaign-banner h1').text(),
+                'idnameteamnum': idnameteamnum,
+                'nickname': $('.navbar').find('.user-name').text()
+            },
+            success: function(data) {
+                var responses = data;
+                var msgCode = responses.resultId;
+                var msgInfo = responses.resultContent;
+                if (msgCode == 'N001') {
+
+                    window.location.replace("campaign.html");
+                } else {
+                    if ($('#creatCampaign').find('.errorCode').length > 0) {
+                        $('#creatCampaign').find('.errorCode').remove();
+                    }
+                    $('#creatCampaign').find('.modal-body').append('<small class="errorCode">' + msgInfo + '</small>');
+                }
+            },
+            error: function(e) {
+                $('#warning-msg').find('strong').text('创建失败，再试一次！').show();
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        });
+
+    }
+
+    function cancelCampaign(memberId) {
+        deleteMember(memberId);
+    }
+
+    function deleteTeamMember(teamMemberId) {
+        deleteMember(teamMemberId);
+    }
+
+    function deleteMember(memberId) {
+        $.ajax({
+            url: '/deleteStbale',
+            type: 'GET',
+            data: {
+                'id': memberId
+            },
+            success: function(data) {
+                var responses = data;
+                var msgCode = responses.resultId;
+                if (msgCode == 'N001') {
+                    campaign.selectCampaignInfo();
+                } else {
+                    $('#warning-msg').find('strong').text('').text('检索失败，再刷新试试！').show();
+                }
+            },
+            error: function(e) {
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+    }
+</script>

@@ -17,7 +17,15 @@ public class Main {
     
     private Integer idnameteamnum;
     
-    private List<String> nickname;
+    private List<Stable> stables;
+
+	public List<Stable> getStables() {
+		return stables;
+	}
+
+	public void setStables(List<Stable> stables) {
+		this.stables = stables;
+	}
 
 	public String getIdname() {
 		return idname;
@@ -67,11 +75,4 @@ public class Main {
 		this.idnameteamnum = idnameteamnum;
 	}
 
-	public List<String> getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(List<String> nickname) {
-		this.nickname = nickname;
-	}
 }

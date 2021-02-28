@@ -1,0 +1,46 @@
+{
+    "resultId": "N001",
+    "resultContent": "成功查询全部数据",
+    "mainList": [{
+            "idname": "黄昏圣殿",
+            "register": "ほうほう0",
+            "memo": "huanghun",
+            "peoplenum": 12,
+            "starttime": "2021-02-14T23:34:18",
+            "idnameteamnum": 1,
+            "stables": [{
+                    "id": 246,
+                    "idname": null,
+                    "idnameteamnum": null,
+                    "nickname": "ほうほう0"
+                },
+                {
+                    "id": 248,
+                    "idname": null,
+                    "idnameteamnum": null,
+                    "nickname": "1235"
+                },
+                {
+                    "id": 249,
+                    "idname": null,
+                    "idnameteamnum": null,
+                    "nickname": "北山"
+                }
+            ]
+        },
+        {
+            "idname": "黄昏圣殿",
+            "register": "ほうほう0",
+            "memo": "fs",
+            "peoplenum": 12,
+            "starttime": "2021-02-20T23:26:50",
+            "idnameteamnum": 2,
+            "stables": [{
+                "id": 250,
+                "idname": null,
+                "idnameteamnum": null,
+                "nickname": "ほうほう0"
+            }]
+        }
+    ]
+}
